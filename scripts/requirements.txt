@@ -1,0 +1,8 @@
+# CPU-capable runtime. Install requirements-gpu.txt instead for CUDA training.
+numpy==2.5.3
+Pillow==12.3.0
+opencv-python-headless==5.0.0.93
+PyWavelets==1.10.0
+scikit-image==0.26.0
+scipy==1.18.1
+torch==2.11.0

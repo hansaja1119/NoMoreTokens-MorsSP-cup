@@ -1,0 +1,12 @@
+/public/
+/submissions/
+/competition_data/public/
+/competition_data/submissions/
+/scripts/.venv/
+/scripts/cache/
+/scripts/runs/
+/scripts/checkpoints/
+/scripts/outputs/
+__pycache__/
+.pytest_cache/
+*.pyc
