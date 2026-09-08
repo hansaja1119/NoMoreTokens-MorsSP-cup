@@ -1,0 +1,229 @@
+{
+  "validation_images": 60,
+  "bootstrap_groups": 41,
+  "replicates": 10000,
+  "entries": [
+    {
+      "run": "baseline_val",
+      "step": null,
+      "summary": {
+        "psnr": 23.78851851327996,
+        "ssim": 0.6269259621699651,
+        "noisy_psnr": 19.621110640850027,
+        "noisy_ssim": 0.44747076332569125,
+        "delta_psnr": 4.1674078724299335,
+        "delta_ssim": 0.17945519884427388,
+        "composite_score": 0.23825691412233083,
+        "seconds": 2.97737980666631,
+        "count": 60,
+        "median_seconds": 2.4945951999980025,
+        "worst_decile_composite": 0.06817035690081806,
+        "wall_seconds": 105.64128570000321
+      },
+      "paired_gain_ci95": [
+        0.0,
+        0.0
+      ],
+      "path": "C:\\Users\\abdul\\OneDrive\\Desktop\\MORASPCUP\\scripts\\runs\\baseline_val\\metrics.json"
+    },
+    {
+      "run": "wavelet_val_1",
+      "step": null,
+      "summary": {
+        "psnr": 26.14528982345328,
+        "ssim": 0.7712091525395711,
+        "noisy_psnr": 19.621110640850027,
+        "noisy_ssim": 0.44747076332569125,
+        "delta_psnr": 6.524179182603251,
+        "delta_ssim": 0.32373838921387993,
+        "composite_score": 0.39046252298968204,
+        "seconds": 0.44525493166675006,
+        "count": 60,
+        "median_seconds": 0.4315799000014522,
+        "worst_decile_composite": 0.2624104623440389,
+        "wall_seconds": 32.79142270000011
+      },
+      "paired_gain_ci95": [
+        0.11683700505078248,
+        0.18622942157163794
+      ],
+      "path": "C:\\Users\\abdul\\OneDrive\\Desktop\\MORASPCUP\\scripts\\runs\\wavelet_val_1\\metrics.json"
+    },
+    {
+      "run": "hybrid16",
+      "step": 1000,
+      "summary": {
+        "psnr": 27.146830374388337,
+        "ssim": 0.7997079173723857,
+        "noisy_psnr": 19.621110640850027,
+        "noisy_ssim": 0.44747076332569125,
+        "delta_psnr": 7.525719733538305,
+        "delta_ssim": 0.3522371540466944,
+        "composite_score": 0.44192365096020997,
+        "seconds": 0.6653366983335824,
+        "count": 60,
+        "median_seconds": 0.551684350000869,
+        "worst_decile_composite": 0.2942953546389631
+      },
+      "paired_gain_ci95": [
+        0.16426882289820843,
+        0.24106525492902717
+      ],
+      "path": "C:\\Users\\abdul\\OneDrive\\Desktop\\MORASPCUP\\scripts\\runs\\hybrid16\\val_001000.json"
+    },
+    {
+      "run": "hybrid16",
+      "step": 2000,
+      "summary": {
+        "psnr": 27.665293330667154,
+        "ssim": 0.8140889137983323,
+        "noisy_psnr": 19.621110640850027,
+        "noisy_ssim": 0.44747076332569125,
+        "delta_psnr": 8.044182689817124,
+        "delta_ssim": 0.366618150472641,
+        "composite_score": 0.46841456778174123,
+        "seconds": 1.0811584466666924,
+        "count": 60,
+        "median_seconds": 1.013877549998142,
+        "worst_decile_composite": 0.31129292024521854
+      },
+      "paired_gain_ci95": [
+        0.19002979242003254,
+        0.2682118046626597
+      ],
+      "path": "C:\\Users\\abdul\\OneDrive\\Desktop\\MORASPCUP\\scripts\\runs\\hybrid16\\val_002000.json"
+    },
+    {
+      "run": "hybrid16",
+      "step": 3000,
+      "summary": {
+        "psnr": 28.170470135413748,
+        "ssim": 0.8289452095826467,
+        "noisy_psnr": 19.621110640850027,
+        "noisy_ssim": 0.44747076332569125,
+        "delta_psnr": 8.549359494563724,
+        "delta_ssim": 0.3814744462569555,
+        "composite_score": 0.4945641582853311,
+        "seconds": 0.5369438366666145,
+        "count": 60,
+        "median_seconds": 0.5174026999957277,
+        "worst_decile_composite": 0.3239618189098627
+      },
+      "paired_gain_ci95": [
+        0.21484551730696558,
+        0.29632036876144835
+      ],
+      "path": "C:\\Users\\abdul\\OneDrive\\Desktop\\MORASPCUP\\scripts\\runs\\hybrid16\\val_003000.json"
+    },
+    {
+      "run": "hybrid16",
+      "step": 4000,
+      "summary": {
+        "psnr": 28.595902888759657,
+        "ssim": 0.8434167722860972,
+        "noisy_psnr": 19.621110640850027,
+        "noisy_ssim": 0.44747076332569125,
+        "delta_psnr": 8.97479224790963,
+        "delta_ssim": 0.395946008960406,
+        "composite_score": 0.5173700935005476,
+        "seconds": 0.6255653000000165,
+        "count": 60,
+        "median_seconds": 0.6414197000012791,
+        "worst_decile_composite": 0.3317717924359285
+      },
+      "paired_gain_ci95": [
+        0.23689213910831314,
+        0.32094072034945687
+      ],
+      "path": "C:\\Users\\abdul\\OneDrive\\Desktop\\MORASPCUP\\scripts\\runs\\hybrid16\\val_004000.json"
+    },
+    {
+      "run": "rgb16",
+      "step": 1000,
+      "summary": {
+        "psnr": 25.710713927692343,
+        "ssim": 0.7114598582188288,
+        "noisy_psnr": 19.621110640850027,
+        "noisy_ssim": 0.44747076332569125,
+        "delta_psnr": 6.089603286842315,
+        "delta_ssim": 0.2639890948931376,
+        "composite_score": 0.34917976943094764,
+        "seconds": 0.21136815166682937,
+        "count": 60,
+        "median_seconds": 0.20985194999957457,
+        "worst_decile_composite": 0.2209992115404573
+      },
+      "paired_gain_ci95": [
+        0.05969512717721054,
+        0.15259648858084449
+      ],
+      "path": "C:\\Users\\abdul\\OneDrive\\Desktop\\MORASPCUP\\scripts\\runs\\rgb16\\val_001000.json"
+    },
+    {
+      "run": "rgb16",
+      "step": 2000,
+      "summary": {
+        "psnr": 27.107540554020197,
+        "ssim": 0.7799506043394406,
+        "noisy_psnr": 19.621110640850027,
+        "noisy_ssim": 0.44747076332569125,
+        "delta_psnr": 7.486429913170169,
+        "delta_ssim": 0.33247984101374944,
+        "composite_score": 0.43244913293230647,
+        "seconds": 0.24914513333399857,
+        "count": 60,
+        "median_seconds": 0.23619980000148644,
+        "worst_decile_composite": 0.23896637427797698
+      },
+      "paired_gain_ci95": [
+        0.14607780094949388,
+        0.23632652956993064
+      ],
+      "path": "C:\\Users\\abdul\\OneDrive\\Desktop\\MORASPCUP\\scripts\\runs\\rgb16\\val_002000.json"
+    },
+    {
+      "run": "rgb16",
+      "step": 3000,
+      "summary": {
+        "psnr": 27.72644088087653,
+        "ssim": 0.8014129807551702,
+        "noisy_psnr": 19.621110640850027,
+        "noisy_ssim": 0.44747076332569125,
+        "delta_psnr": 8.105330240026499,
+        "delta_ssim": 0.35394221742947896,
+        "composite_score": 0.4657900965728516,
+        "seconds": 0.2559283216673066,
+        "count": 60,
+        "median_seconds": 0.24105790000248817,
+        "worst_decile_composite": 0.26283606911530755
+      },
+      "paired_gain_ci95": [
+        0.18106948294691472,
+        0.26930772065489345
+      ],
+      "path": "C:\\Users\\abdul\\OneDrive\\Desktop\\MORASPCUP\\scripts\\runs\\rgb16\\val_003000.json"
+    },
+    {
+      "run": "rgb16",
+      "step": 4000,
+      "summary": {
+        "psnr": 28.097404407068566,
+        "ssim": 0.812127830584844,
+        "noisy_psnr": 19.621110640850027,
+        "noisy_ssim": 0.44747076332569125,
+        "delta_psnr": 8.476293766218536,
+        "delta_ssim": 0.36465706725915276,
+        "composite_score": 0.4849145775524025,
+        "seconds": 0.2794504083328017,
+        "count": 60,
+        "median_seconds": 0.23215875000096275,
+        "worst_decile_composite": 0.28466450563820883
+      },
+      "paired_gain_ci95": [
+        0.20071448224536398,
+        0.2881558225517155
+      ],
+      "path": "C:\\Users\\abdul\\OneDrive\\Desktop\\MORASPCUP\\scripts\\runs\\rgb16\\val_004000.json"
+    }
+  ]
+}

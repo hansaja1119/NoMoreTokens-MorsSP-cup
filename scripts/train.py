@@ -60,6 +60,7 @@ def main():
     ap.add_argument('--resume',type=Path)
     ap.add_argument('--init',type=Path)
     ap.add_argument('--seed',type=int,default=20260908)
+    ap.add_argument('--final-training',action='store_true',help='All 460 public pairs; disables validation and selection')
     args=ap.parse_args()
     if Path(args.run).name!=args.run:ap.error('--run must be a single directory name')
     if args.resume and args.init:ap.error('Use only one of --resume / --init')
@@ -69,6 +70,10 @@ def main():
     manifest=json.loads(cache.read_text())
     if manifest['classical_sha256']!=sha256(SCRIPTS/'classical.py') or manifest['split_sha256']!=sha256(SCRIPTS/'data'/'split.json'):
         raise RuntimeError('Stale feature cache: rebuild it explicitly before training')
+    if args.final_training:
+        if not (SCRIPTS/'runs'/'final_preparation'/'locked_test'/'metrics.json').exists():
+            raise RuntimeError('Final all-data training requires the recorded one-time locked test')
+        if set(manifest['ids'])!=set(load_split('all')):raise RuntimeError('Prepare the all-data cache first')
     cv2.setNumThreads(1);torch.set_num_threads(4)
     random.seed(args.seed);np.random.seed(args.seed);torch.manual_seed(args.seed)
     device=choose_device(args.device)
@@ -91,7 +96,7 @@ def main():
             first=obj['step'];best=obj['best_score'];elapsed_before=obj.get('elapsed_seconds',0.)
     if first>=args.steps:ap.error('--steps must exceed the resumed step')
     effective=args.batch*args.accumulate
-    dataset=TrainingCrops(args.steps,effective,not args.rgb_only,not args.no_synthetic,args.seed,first,args.warmup_steps)
+    dataset=TrainingCrops(args.steps,effective,not args.rgb_only,not args.no_synthetic,args.seed,first,args.warmup_steps,args.final_training)
     loader=DataLoader(dataset,batch_size=args.batch,num_workers=args.workers,pin_memory=device.type=='cuda',
                       persistent_workers=args.workers>0,shuffle=False)
     iterator=iter(loader)
@@ -134,7 +139,7 @@ def main():
                  scaler=scaler.state_dict(),step=step,best_score=best,elapsed_seconds=elapsed,
                  split_sha256=sha256(SCRIPTS/'data'/'split.json'))
         if step%250==0:save_checkpoint(out/'last.pt',obj)
-        if step%args.val_every==0 or step==args.steps:
+        if not args.final_training and (step%args.val_every==0 or step==args.steps):
             write_json(out/'status.json',dict(state='validating',step=step,best_score=best))
             result=evaluate(ema,device,load_split('val'))
             result.update(step=step);write_json(out/f'val_{step:06d}.json',result)
@@ -142,7 +147,10 @@ def main():
             if score>best:
                 best=score;obj['best_score']=best;save_checkpoint(out/'best.pt',obj)
             obj['best_score']=best;save_checkpoint(out/'last.pt',obj)
+        elif args.final_training and step==args.steps:
+            obj['best_score']=None;obj['validation_enabled']=False
+            save_checkpoint(out/'last.pt',obj);save_checkpoint(out/'final.pt',obj)
     write_json(out/'status.json',dict(state='complete',step=args.steps,best_score=best,
-                                     elapsed_seconds=time.perf_counter()-started+elapsed_before))
+                                     elapsed_seconds=time.perf_counter()-started+elapsed_before,final_training=args.final_training))
 
 if __name__=='__main__':main()

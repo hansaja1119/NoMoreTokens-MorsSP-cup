@@ -1,0 +1,3 @@
+-r requirements.txt
+bm3d==4.0.3
+bm4d==4.2.5

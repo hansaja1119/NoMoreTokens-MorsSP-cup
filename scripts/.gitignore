@@ -1,4 +1,5 @@
 .venv/
+.cpu-verify/
 __pycache__/
 .pytest_cache/
 cache/

@@ -1,6 +1,7 @@
 # Adaptive denoising: Mora SP Cup 2026
 
 This is an experimental solution under development, not a frozen competition submission.
+Team: **VISION_HUNTERS**.
 All custom code is inside `scripts/`. The official baseline/evaluator are unchanged
 from starter commit `6fe15af99b2dc5d808cf6004f7cb11df148b9f82`.
 
@@ -21,6 +22,9 @@ to select settings or fit parameters.
 Python 3.12 is used locally. The project environment is `scripts/.venv`.
 Install dependencies from `scripts/requirements.txt`. For GPU training, install
 the CUDA build of PyTorch using the command in `scripts/requirements-gpu.txt`.
+For a CPU-only installation, use `scripts/requirements-cpu.txt`; this was tested
+in a separate environment with no CUDA support. All 20 prototype PNGs matched
+the CUDA-environment CPU run byte-for-byte.
 Inference loads local weights only and does not access the network.
 
 Windows commands below assume the repository root. Replace `python` with
@@ -37,7 +41,17 @@ python -m pytest scripts/tests -q
 python scripts/train.py --run hybrid16 --steps 1000
 python scripts/train.py --run hybrid16 --steps 10000 --resume scripts/runs/hybrid16/last.pt
 python scripts/evaluate_checkpoint.py --checkpoint scripts/runs/hybrid16/best.pt --output scripts/runs/hybrid16_cpu_check --device cpu --limit 3
+python scripts/status.py
 ```
+
+The sequential development queue is `python scripts/run_experiments.py`. It
+compares RGB-only, width-16/32 hybrid, and real-pairs-only models at 4,000 steps;
+checks CPU speed and synthetic robustness; extends the qualifying winner to
+20,000 steps; compares SSIM fine-tunes; and calibrates conservative protection.
+It stops for review if no candidate meets the checks. It does not use the locked
+test, upload files, or freeze the repository. Do not start a second queue while
+`scripts/runs/experiment_queue/queue.lock` exists. Its logs and current status are
+under that directory; use `status.py` for a compact snapshot.
 
 The audit refuses to change a split after experiment directories exist. A feature
 cache manifest records preprocessing and split hashes. Training refuses stale
@@ -68,6 +82,11 @@ The default checkpoint location `scripts/checkpoints/selected.pt` is reserved
 for the validated final selection and is not yet populated. No model is final
 until the experiment and CPU checks are complete.
 
+Versioned development checkpoints can be exported with `export_checkpoint.py`.
+The four-page PDF in `scripts/outputs/development` records the completed early
+experiments, not the results of jobs that are still running. It was rendered and
+checked, including one-inch text margins and twelve-point body text.
+
 ## Architecture and attribution
 
 The classical front end estimates spatial RGB noise maps using robust diagonal
@@ -83,6 +102,27 @@ The compact model uses the NAF block design from Chen et al., *Simple Baselines
 for Image Restoration*, ECCV 2022: https://github.com/megvii-research/NAFNet .
 The local implementation uses standard PyTorch operations and is trained from
 scratch. No external checkpoints or datasets have been used.
+
+The conservative output blend uses opponent-chroma noise and a weak-texture
+luminance covariance estimate. The luminance check prevents chroma-only noise
+detection from ignoring strong correlated/grayscale noise. This is a statistical
+heuristic, not a guarantee of universal restoration. The stress suite explicitly
+includes clean, mild, strong, signal-dependent, spatial, grayscale and correlated
+noise conditions on fixed validation crops.
+
+After model selection, `evaluate_checkpoint.py --split test --allow-locked-test`
+is reserved for the one-time locked assessment. All-data training is separate:
+`prepare_cache.py --include-locked-test` and `train.py --final-training` require
+the recorded locked-test metrics in `runs/final_preparation/locked_test`.
+Final training uses all 460 public pairs and disables validation/model selection;
+its training-fit results must never be labeled held-out results.
+`prepare_final_candidate.py` carries out this fixed-recipe phase after the
+development queue succeeds. Its `--wait-for-queue` flag waits for selection;
+it stops if selection fails. It records the selected development checkpoint's
+locked-test result before training a separate model on all 460 public pairs.
+It preserves the chosen training duration and learning-rate schedule, then
+checks runtime and prepares local candidate outputs. It never publishes,
+adds collaborators, or declares a code/model freeze.
 
 ## Submission freeze checklist (not yet performed)
 

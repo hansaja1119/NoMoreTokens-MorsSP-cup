@@ -7,8 +7,8 @@ from common import SCRIPTS,load_split
 from classical import features
 
 class TrainingCrops(Dataset):
-    def __init__(self,steps,batch,hybrid=True,synthetic=True,seed=20260908,start_step=0,warmup_steps=1000):
-        self.ids=load_split('train');self.steps=steps;self.batch=batch;self.hybrid=hybrid
+    def __init__(self,steps,batch,hybrid=True,synthetic=True,seed=20260908,start_step=0,warmup_steps=1000,final_training=False):
+        self.ids=load_split('all' if final_training else 'train');self.steps=steps;self.batch=batch;self.hybrid=hybrid
         self.synthetic=synthetic;self.seed=seed;self.start_step=start_step;self.warmup_steps=warmup_steps
         self.arrays={}
     def __len__(self):return (self.steps-self.start_step)*self.batch
