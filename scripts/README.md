@@ -53,6 +53,26 @@ test, upload files, or freeze the repository. Do not start a second queue while
 `scripts/runs/experiment_queue/queue.lock` exists. Its logs and current status are
 under that directory; use `status.py` for a compact snapshot.
 
+For a live display, double-click `scripts/Watch Training.cmd`, or run
+`python scripts/status.py --watch`. It refreshes every five seconds and shows
+the current training stage, steps, stage estimate, scores, and both job states.
+Wait for **ALL QUEUED WORK FINISHED - YOU CAN TURN OFF THE LAPTOP** before
+shutting down. A single completed model or development queue is not sufficient:
+final all-data training, CPU checks, and ZIP generation must also finish.
+Closing the monitor does not stop the training jobs. Failed or unexpectedly
+stopped jobs are shown as needing attention rather than as successful completion.
+
+The additional queue `python scripts/run_width_experiments.py` compares width 48
+and width 64 at exactly 4,000 updates against width 32's saved 4,000-update score
+(0.5646054497). Both comparisons finish before each qualifying width is extended
+to 20,000 updates. A strict improvement is required; both widths may qualify.
+Memory probes choose microbatches while retaining an effective batch of 16.
+CPU and robustness diagnostics follow. This queue uses only the original train
+and validation partitions, and preserves the earlier width-32 candidate ZIP and
+held-out assessment. Its plan, logs, comparison and process lock are under
+`scripts/runs/width_experiments`. Do not start another instance while it is running.
+The monitor also waits for this additional queue before announcing completion.
+
 The audit refuses to change a split after experiment directories exist. A feature
 cache manifest records preprocessing and split hashes. Training refuses stale
 caches. Training uses scene-uniform deterministic crops, GPU mixed precision,
