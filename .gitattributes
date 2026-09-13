@@ -1,0 +1,2 @@
+# Preserve archived measurement bytes so SHA-256 checksums survive every clone.
+scripts/reports/final/evidence/** -text
