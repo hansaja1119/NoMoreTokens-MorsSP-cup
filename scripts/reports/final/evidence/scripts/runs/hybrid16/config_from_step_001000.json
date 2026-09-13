@@ -1,0 +1,41 @@
+{
+  "run": "hybrid16",
+  "steps": 4000,
+  "schedule_steps": 30000,
+  "width": 16,
+  "rgb_only": false,
+  "no_synthetic": false,
+  "batch": 8,
+  "accumulate": 2,
+  "workers": 2,
+  "warmup_steps": 1000,
+  "val_every": 1000,
+  "lr": 0.0002,
+  "ssim_weight": 0.0,
+  "device": "auto",
+  "resume": "scripts\\runs\\hybrid16\\last.pt",
+  "init": null,
+  "seed": 20260908,
+  "model": {
+    "width": 16,
+    "hybrid": true
+  },
+  "source_hashes": {
+    "audit.py": "ad732df353f3be3c51fabec69e4b12314c22a2cd4baf50c02f505639a134d027",
+    "benchmark.py": "a4bd3b5febaa23324f539a31f976787074d756d96dc27ed97c0f6b386ecdfd21",
+    "classical.py": "ad3dedbc3e769bf3015814db45d0fb4e89ff88752ab91cf11726f8e6676c0e7c",
+    "common.py": "50fc2a7e93490f535db931a883357dd380ac45baf2755129c19b572bc526dd41",
+    "denoise.py": "2daf21c64a5656fb892c48c26367922717506d6d58f6a08ba3fd53d81b5435ce",
+    "evaluate_checkpoint.py": "c936bdc9f9ce1af0672158d03c6bdef4840144ce7f0baf0512941f2108e391e9",
+    "inference.py": "f627e1515fcaac0c1cc993dace0390a1a0600cd63d8af2608ef59bfbd8950bcb",
+    "metrics.py": "1430cb6eff75b00f5f9b8b56438672c9839b3a74bebc38bb4ec9d6bfd5d73cbf",
+    "model.py": "c551fcc122e86609712d8c9306deb28690277d22ee6778dd9ba25600bd1800ab",
+    "package_submission.py": "43858aa7c9f1b2b1f00e7e4e8e2dd53986f560e240c04d062f8edcfeabb37a2f",
+    "prepare_cache.py": "96b03d1ef6cdbc68f5ab2bd7d28fc8cfe1abb92ed33cd440c0dc839c6d8c2f10",
+    "robustness.py": "86fd81ba992741986d88c4b84d6210638cae654dd2742d3728314c48275e2023",
+    "train.py": "48bf987c6bc414b660bd463373c7ae5ba736149159d1ab45a30d744452aeb82a",
+    "training_data.py": "5bd9f04d0ffb391bb38ac9ce96bd45d96d42c7ffd3357b9b1c6b2b7f64861f68",
+    "verify_runtime.py": "fdf217f9ec14438fd0abed3adc444aa29149440aa68c45171b42191491427ff5"
+  },
+  "split_sha256": "438237f0c2abdb681d01e80d89b210aae402003431ed502bee9331a0ddb1f19e"
+}

@@ -1,0 +1,63 @@
+{
+  "checkpoint": "C:\\Users\\abdul\\OneDrive\\Desktop\\MORASPCUP\\scripts\\runs\\hybrid48\\best.pt",
+  "checkpoint_sha256": "6670596f27bc8bdcc2b9a9a40a92f1be11dea7801c833439a0f6a4eae51b2204",
+  "step": 20000,
+  "device": "cpu",
+  "threads": 4,
+  "tile": 512,
+  "overlap": 64,
+  "mild_threshold": null,
+  "split": "val",
+  "wall_seconds": 33.75046509999993,
+  "summary": {
+    "psnr": 32.14370289996844,
+    "ssim": 0.9349962075551351,
+    "noisy_psnr": 23.10100351761341,
+    "noisy_ssim": 0.6098497013250986,
+    "delta_psnr": 9.042699382355021,
+    "delta_ssim": 0.32514650623003644,
+    "composite_score": 0.49176657778621546,
+    "seconds": 10.535272299999633,
+    "count": 3,
+    "median_seconds": 10.631673500000034,
+    "worst_decile_composite": 0.3855353557792257
+  },
+  "rows": [
+    {
+      "id": "021",
+      "seconds": 10.947750199999064,
+      "sha256": "8c98a3de980bc5d3dd2a16865003f9a83731a05d01a7e0222ad050ff63dc484c",
+      "psnr": 30.489623317058353,
+      "ssim": 0.9165666103363037,
+      "noisy_psnr": 19.720668919468032,
+      "noisy_ssim": 0.49037858843803406,
+      "delta_psnr": 10.76895439759032,
+      "delta_ssim": 0.42618802189826965,
+      "composite_score": 0.6012333846629208
+    },
+    {
+      "id": "022",
+      "seconds": 10.631673500000034,
+      "sha256": "2e5e5a405e11921b247abf9b4d1c2e04e569b55d9c651cc8dc36ab811e444d0c",
+      "psnr": 31.269793457304175,
+      "ssim": 0.9280874133110046,
+      "noisy_psnr": 22.598742803169145,
+      "noisy_ssim": 0.5738649964332581,
+      "delta_psnr": 8.67105065413503,
+      "delta_ssim": 0.3542224168777466,
+      "composite_score": 0.4885309929164998
+    },
+    {
+      "id": "023",
+      "seconds": 10.026393199999802,
+      "sha256": "ba0fa5564347cb8fd2e2c78077953d27f2fb763917e26c1e883920af10517530",
+      "psnr": 34.671691925542774,
+      "ssim": 0.9603345990180969,
+      "noisy_psnr": 26.98359883020306,
+      "noisy_ssim": 0.7653055191040039,
+      "delta_psnr": 7.688093095339713,
+      "delta_ssim": 0.19502907991409302,
+      "composite_score": 0.3855353557792257
+    }
+  ]
+}

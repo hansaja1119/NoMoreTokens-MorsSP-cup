@@ -1,5 +1,9 @@
 # VISION_HUNTERS development scorecard
 
+**Historical early scorecard.** For all completed widths and steps, current
+selection, and the historical locked-test assessment, read the
+[final model guide](final/MODEL_GUIDE.md).
+
 All quality values below are from the same 60-image validation split. The locked test remains reserved.
 Gain intervals resample 41 scene groups, using 10,000 paired bootstrap replicates.
 They quantify uncertainty within this dataset, not the probability of winning.

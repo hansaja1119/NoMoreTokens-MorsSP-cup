@@ -89,7 +89,7 @@ def main():
     if args.resume or args.init:
         obj=torch.load(args.resume or args.init,map_location='cpu',weights_only=True)
         if obj['model_config']!=model.config:raise ValueError('Checkpoint architecture mismatch')
-        model.load_state_dict(obj['model'] if args.resume else obj.get('ema',obj['model']))
+        model.load_state_dict(obj['model'] if args.resume else obj['ema'] if 'ema' in obj else obj['model'])
         ema.load_state_dict(obj['ema'])
         if args.resume:
             optimizer.load_state_dict(obj['optimizer']);scaler.load_state_dict(obj['scaler'])

@@ -1,0 +1,25 @@
+{
+  "architecture": {
+    "run": "hybrid32",
+    "score": 0.5646054497225644,
+    "cpu_seconds": 5.835942199999408,
+    "stress_psnr": 30.605131386354305,
+    "clean_mae": 0.0,
+    "rgb": false,
+    "width": 32,
+    "no_synthetic": false
+  },
+  "selection": {
+    "run": "hybrid32_ssim0.05",
+    "checkpoint_sha256": "1effb73b191c41c0b5cfe52c19c51b39dbe0eccb3dbc6e553a973d85283a8fb9",
+    "validation_composite": 0.6069841847119248,
+    "mild_threshold": 0.02,
+    "status": "development candidate; locked test, full-data training, report and submission freeze still required"
+  },
+  "base_steps": 20000,
+  "base_schedule_steps": 30000,
+  "fine_schedule_steps": 2000,
+  "fine_steps": 2000,
+  "ssim_weight": 0.05,
+  "declaration": "Recipe fixed before locked test. No tuning on locked-test results."
+}

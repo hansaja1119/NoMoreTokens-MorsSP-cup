@@ -1,5 +1,11 @@
 # Adaptive denoising: Mora SP Cup 2026
 
+**Final handoff (2026-09-13):** use the [current model guide](reports/final/MODEL_GUIDE.md)
+and [final image inventory](../final_output/IMAGE_LIST.md). The final output model
+is `checkpoints/VISION_HUNTERS_w128_s20000.pt`, supplied as a GitHub release asset.
+Specify that checkpoint explicitly; `selected.pt` below remains the historical
+width-32 development selection. The notes below document the earlier workflow.
+
 This is an experimental solution under development, not a frozen competition submission.
 Team: **VISION_HUNTERS**.
 All custom code is inside `scripts/`. The official baseline/evaluator are unchanged

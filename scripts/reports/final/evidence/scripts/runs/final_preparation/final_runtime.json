@@ -1,0 +1,11 @@
+{
+  "id": "021",
+  "checkpoint_sha256": "dc5f9ecafba974527f41e147284f80d2e896bd514de7387c13906c208edd4726",
+  "cpu_seconds": 6.429667299991706,
+  "cpu_repeat_max_abs": 0.0,
+  "cpu_repeat_png_exact": true,
+  "cpu_gpu_max_abs": 8.273124694824219e-05,
+  "cpu_gpu_max_png_difference": 1,
+  "tiled_psnr": 30.45007358858686,
+  "full_frame_psnr": 30.443856707487875
+}

@@ -1,0 +1,35 @@
+{
+  "reference_score": 0.5646054497225644,
+  "rows": [
+    {
+      "width": 48,
+      "run": "hybrid48",
+      "batch": 8,
+      "accumulate": 2,
+      "score_4000": 0.5762381216658852,
+      "delta_vs_width32": 0.011632671943320738,
+      "extend_to_20000": true,
+      "checkpoint_4000_sha256": "071fee53c476520f703ea55e3f4813ae8a81c888094281413f1b2b1631b2f5cd",
+      "best_step": 20000,
+      "best_score": 0.611368473346167,
+      "best_checkpoint_sha256": "6670596f27bc8bdcc2b9a9a40a92f1be11dea7801c833439a0f6a4eae51b2204",
+      "cpu_median_seconds": 10.631673500000034,
+      "robustness_file": "C:\\Users\\abdul\\OneDrive\\Desktop\\MORASPCUP\\scripts\\runs\\hybrid48\\width_robustness.json"
+    },
+    {
+      "width": 64,
+      "run": "hybrid64",
+      "batch": 4,
+      "accumulate": 4,
+      "score_4000": 0.5836453942950486,
+      "delta_vs_width32": 0.019039944572484147,
+      "extend_to_20000": true,
+      "checkpoint_4000_sha256": "69ceeb44388f9cfd48b9b928cad89ebf51350fbe424b45f88a950574b16c96f8",
+      "best_step": 20000,
+      "best_score": 0.6185674219603023,
+      "best_checkpoint_sha256": "104b60ffabbf44e3624cd4d395f862ea79217b2adc1c3d65cf729c5afb558e4a",
+      "cpu_median_seconds": 19.855119299998478,
+      "robustness_file": "C:\\Users\\abdul\\OneDrive\\Desktop\\MORASPCUP\\scripts\\runs\\hybrid64\\width_robustness.json"
+    }
+  ]
+}

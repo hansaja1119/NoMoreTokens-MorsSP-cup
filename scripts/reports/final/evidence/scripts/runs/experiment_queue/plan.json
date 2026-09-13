@@ -1,0 +1,7 @@
+{
+  "comparison_steps": 4000,
+  "refine_steps": 20000,
+  "fine_steps": 2000,
+  "created_unix": 1788831487.9815173,
+  "note": "Development experiment queue; no locked test or final freeze"
+}

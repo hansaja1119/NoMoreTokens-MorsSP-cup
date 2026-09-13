@@ -1,0 +1,13 @@
+{
+  "width": 48,
+  "batch": 8,
+  "crop": 256,
+  "accumulate": 2,
+  "state": "ok",
+  "parameters": 25944819,
+  "peak_allocated_mb": 6932.19287109375,
+  "peak_reserved_mb": 7012.0,
+  "total_mb": 8187.5,
+  "headroom_pass": true,
+  "seconds_per_step": 4.254385649997857
+}

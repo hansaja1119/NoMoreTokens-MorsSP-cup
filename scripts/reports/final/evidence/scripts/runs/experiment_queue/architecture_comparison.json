@@ -1,0 +1,54 @@
+{
+  "candidates": [
+    {
+      "run": "hybrid16",
+      "score": 0.5173700935005476,
+      "cpu_seconds": 2.423539300005359,
+      "stress_psnr": 30.05909594531076,
+      "clean_mae": 0.0,
+      "rgb": false,
+      "width": 16,
+      "no_synthetic": false
+    },
+    {
+      "run": "rgb16",
+      "score": 0.4849145775524025,
+      "cpu_seconds": 2.075047500002256,
+      "stress_psnr": 30.087295651500458,
+      "clean_mae": 0.0,
+      "rgb": true,
+      "width": 16,
+      "no_synthetic": false
+    },
+    {
+      "run": "hybrid32",
+      "score": 0.5646054497225644,
+      "cpu_seconds": 5.835942199999408,
+      "stress_psnr": 30.605131386354305,
+      "clean_mae": 0.0,
+      "rgb": false,
+      "width": 32,
+      "no_synthetic": false
+    },
+    {
+      "run": "hybrid16_real_only",
+      "score": 0.5164318065913308,
+      "cpu_seconds": 2.3235850000055507,
+      "stress_psnr": 29.95513123610611,
+      "clean_mae": 0.0,
+      "rgb": false,
+      "width": 16,
+      "no_synthetic": true
+    }
+  ],
+  "provisional_winner": {
+    "run": "hybrid32",
+    "score": 0.5646054497225644,
+    "cpu_seconds": 5.835942199999408,
+    "stress_psnr": 30.605131386354305,
+    "clean_mae": 0.0,
+    "rgb": false,
+    "width": 32,
+    "no_synthetic": false
+  }
+}

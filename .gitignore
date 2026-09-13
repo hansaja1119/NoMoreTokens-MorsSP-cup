@@ -10,3 +10,9 @@ competition_data/submissions/
 
 __pycache__/
 *.py[cod]
+
+# Local datasets and publication scratch files
+/public/
+/submissions/
+/.publication/
+/final_output/*.zip

@@ -1,0 +1,13 @@
+{
+  "widths": [
+    48,
+    64
+  ],
+  "comparison_steps": 4000,
+  "refine_steps": 20000,
+  "reference_score": 0.5646054497225644,
+  "reference_sha256": "93afb59563f32cb337a9aeb5779b33951c1be3a794b8adda8e21b7c060f8b13e",
+  "effective_batch": 16,
+  "rule": "Both widths run to 4000 first. Extend EACH width with exact step-4000 score strictly above width 32 to 20000.",
+  "data": "Original train/validation split only. Earlier locked assessment is not reused for selection."
+}

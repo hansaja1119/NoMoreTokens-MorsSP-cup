@@ -13,6 +13,15 @@ def test_completion_requires_both_phases_and_final_artifacts(tmp_path):
     assert completion_state(queue,final,tmp_path)[0]=='attention'
     (output/'VISION_HUNTERS.zip').write_bytes(b'fixture');checkpoint.write_bytes(b'fixture')
     assert completion_state(queue,final,tmp_path)[0]=='complete'
+    large=tmp_path/'large_width_experiments';large.mkdir()
+    (large/'status.json').write_text('{"state":"running"}')
+    assert completion_state(queue,final,tmp_path)[0]=='running'
+    (large/'status.json').write_text('{"state":"failed","error":"memory probe failed"}')
+    assert completion_state(queue,final,tmp_path)[0]=='attention'
+    (large/'status.json').write_text('{"state":"paused","saved_step":8750}')
+    assert completion_state(queue,final,tmp_path)[0]=='paused'
+    (large/'status.json').write_text('{"state":"complete"}')
+    assert completion_state(queue,final,tmp_path)[0]=='complete'
     assert completion_state({'state':'failed','error':'example'},final,tmp_path)[0]=='attention'
     extra=tmp_path/'width_experiments';extra.mkdir()
     (extra/'status.json').write_text('{"state":"running"}')

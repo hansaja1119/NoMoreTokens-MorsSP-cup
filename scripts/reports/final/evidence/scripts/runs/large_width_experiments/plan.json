@@ -1,0 +1,14 @@
+{
+  "widths": [
+    96,
+    128
+  ],
+  "steps": 20000,
+  "schedule_steps": 30000,
+  "validation_every": 1000,
+  "effective_batch": 16,
+  "crop": 256,
+  "rule": "Train BOTH widths to 20000; no 4000-step qualification gate.",
+  "split_sha256": "438237f0c2abdb681d01e80d89b210aae402003431ed502bee9331a0ddb1f19e",
+  "data": "Original 340 training / 60 validation images. No held-out test reuse."
+}

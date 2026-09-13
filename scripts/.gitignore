@@ -7,3 +7,7 @@ runs/
 checkpoints/
 outputs/
 *.pyc
+
+# Small JSON/JSONL measurement snapshots are part of the final report.
+!reports/final/evidence/**/
+!reports/final/evidence/**

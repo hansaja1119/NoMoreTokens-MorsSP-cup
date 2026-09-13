@@ -1,0 +1,14 @@
+{
+  "state": "paused",
+  "run": "hybrid128",
+  "saved_step": 8750,
+  "step": 8750,
+  "target_steps": 20000,
+  "best_score": 0.6078934102731541,
+  "elapsed_seconds": 21271.091010899996,
+  "checkpoint": "C:\\Users\\abdul\\OneDrive\\Desktop\\MORASPCUP\\scripts\\runs\\hybrid128\\last.pt",
+  "checkpoint_sha256": "65d5a06a4c7a12282732075610036b7200e5d5d6912834e6de0a8419d92790e3",
+  "updated_unix": 1789016196.769889,
+  "resume_command": "scripts/.venv/Scripts/python.exe scripts/run_large_width_experiments.py",
+  "reason": "Paused at user request; resume only when requested."
+}

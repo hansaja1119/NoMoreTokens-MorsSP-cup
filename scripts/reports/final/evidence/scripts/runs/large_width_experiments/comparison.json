@@ -1,0 +1,26 @@
+{
+  "rows": [
+    {
+      "width": 96,
+      "run": "hybrid96",
+      "batch": 2,
+      "accumulate": 8,
+      "best_step": 20000,
+      "best_score": 0.6253544675016014,
+      "best_checkpoint_sha256": "8aa73b842ee75fb4c69f307240fc90c86cc557332827adac8d81022ef8519116",
+      "cpu_median_seconds": 29.779952299999422,
+      "robustness_file": "C:\\Users\\abdul\\OneDrive\\Desktop\\MORASPCUP\\scripts\\runs\\hybrid96\\width_robustness.json"
+    },
+    {
+      "width": 128,
+      "run": "hybrid128",
+      "batch": 1,
+      "accumulate": 16,
+      "best_step": 20000,
+      "best_score": 0.6270132041607545,
+      "best_checkpoint_sha256": "b6c8bdc1a40fd7b8a4f663fc69d849753689f00b4fb92b7d885cda5a42d7b4df",
+      "cpu_median_seconds": 49.730197800003225,
+      "robustness_file": "C:\\Users\\abdul\\OneDrive\\Desktop\\MORASPCUP\\scripts\\runs\\hybrid128\\width_robustness.json"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "state": "complete",
+  "selected_run": "hybrid32_ssim0.05",
+  "checkpoint": "C:\\Users\\abdul\\OneDrive\\Desktop\\MORASPCUP\\scripts\\checkpoints\\selected.pt",
+  "updated_unix": 1788847955.6801789,
+  "next": "Review diagnostics before opening locked test or preparing frozen submission"
+}

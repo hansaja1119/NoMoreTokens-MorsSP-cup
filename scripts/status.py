@@ -6,6 +6,7 @@ import os
 from pathlib import Path
 import sys
 import time
+from validation_progress import collect, terminal_lines, export_history
 
 SCRIPTS=Path(__file__).resolve().parent
 
@@ -35,6 +36,14 @@ def process_alive(pid):
 
 
 def completion_state(queue,final,runs):
+    large=read_json(runs/'large_width_experiments'/'status.json')
+    if large.get('state')=='paused':return 'paused','TRAINING PAUSED - checkpoint saved. You can turn off the laptop.'
+    if large.get('state')=='failed':return 'attention',f'Width 96/128 experiments failed: {large.get("error","see log")}'
+    if large and large.get('state')!='complete':
+        try:pid=int((runs/'large_width_experiments'/'queue.lock').read_text())
+        except (OSError,ValueError):pid=None
+        if pid is not None and process_alive(pid) is False:return 'attention','Width 96/128 experiment process stopped unexpectedly.'
+        return 'running','WIDTH 96 AND 128 EXPERIMENTS RUNNING - keep the laptop awake.'
     extra=read_json(runs/'width_experiments'/'status.json')
     if extra.get('state')=='failed':return 'attention',f'Width experiments failed: {extra.get("error","see log")}'
     if extra and extra.get('state')!='complete':
@@ -80,9 +89,10 @@ def stage_eta(folder,step,target):
     except (OSError,KeyError,IndexError,TypeError):return None
 
 
-def snapshot(runs):
+def snapshot(runs, export_dir=None):
     queue=read_json(runs/'experiment_queue'/'status.json');final=read_json(runs/'final_preparation'/'status.json')
     extra=read_json(runs/'width_experiments'/'status.json')
+    large=read_json(runs/'large_width_experiments'/'status.json')
     state,message=completion_state(queue,final,runs)
     lines=['VISION_HUNTERS | LIVE TRAINING PROGRESS',datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
            '='*78,message,'='*78,'',
@@ -92,6 +102,9 @@ def snapshot(runs):
     if extra:
         lines.append(f'Width 48 and 64:   {extra.get("state")} | {extra.get("stage","-")}')
         if extra.get('state')!='complete':active=extra
+    if large:
+        lines.append(f'Width 96 and 128:  {large.get("state")} | {large.get("stage","-")}')
+        if large.get('state')!='complete':active=large
     command=active.get('command',[]);run=argument(command,'--run');target=argument(command,'--steps')
     if run and target and state=='running':
         current=read_json(runs/run/'status.json');step=current.get('step',0);target=int(target)
@@ -101,17 +114,32 @@ def snapshot(runs):
         eta=stage_eta(runs/run,step,target)
         if eta:lines.append(f'Approximate time left in THIS training stage: {eta} + validation.')
         if current.get('state')=='validating':lines.append('Checking 60 validation images; training steps pause during this check.')
+    histories=collect(runs)
+    lines+=terminal_lines(histories,run)
+    if export_dir is not None:
+        try:
+            export_history(histories,export_dir)
+            lines.append(f'Full validation data: {export_dir / "validation_history.csv"}')
+        except OSError as exc:
+            lines.append(f'Validation export unavailable (training continues): {exc}')
     lines+=['','Recorded runs (one completed run does not mean the whole queue is finished):',
             f'{"Run":<29} {"State":<12} {"Step":>7} {"Best val score":>16}']
     for path in sorted(runs.glob('*/status.json')):
-        if path.parent.name in ('experiment_queue','final_preparation','width_experiments'):continue
+        if path.parent.name in ('experiment_queue','final_preparation','width_experiments','large_width_experiments'):continue
         record=read_json(path);score=record.get('best_score')
         score=f'{score:.5f}' if isinstance(score,(int,float)) and score>=0 else '-'
         lines.append(f'{path.parent.name:<29} {record.get("state","unknown"):<12} {str(record.get("step","-")):>7} {score:>16}')
-    if state=='complete':
+    if state=='paused':
+        lines+=['',f'Paused at saved step {large.get("saved_step","-")} in {large.get("run","-")}.',
+                'Training will resume only when requested. All earlier results are preserved.']
+    elif state=='complete':
         lines+=['',f'Final candidate files: {final["output"]}',
                 'Training and local packaging are complete. Report review and submission remain.']
-        if extra:lines.append('New width experiments finished. Their results need review before replacing the earlier ZIP.')
+        if extra or large:lines.append('New width experiments finished. Their results need review before replacing the earlier ZIP.')
+    elif large and large.get('state')!='complete':
+        lines+=['','Width queue: memory probes -> width 96 to 20,000 -> width 128 to 20,000.',
+                'BOTH run for 20,000 steps. Best checkpoint selected by 60-image validation.',
+                'CPU and robustness checks follow each run. Earlier checkpoints and ZIP are preserved.']
     elif extra and extra.get('state')!='complete':
         lines+=['','Width queue: 48 and 64 to 4,000 steps each, then each qualifying model to 20,000.',
                 'Qualifying means step-4,000 score strictly above width 32 at step 4,000.',
@@ -131,7 +159,7 @@ def main():
     ap=argparse.ArgumentParser();ap.add_argument('--watch',action='store_true');args=ap.parse_args();previous=None
     try:
         while True:
-            state,text=snapshot(SCRIPTS/'runs')
+            state,text=snapshot(SCRIPTS/'runs',SCRIPTS/'outputs'/'validation_progress')
             if args.watch and sys.stdout.isatty():os.system('cls' if os.name=='nt' else 'clear')
             print(text,flush=True)
             if args.watch and state=='complete' and previous!='complete' and sys.platform=='win32':

@@ -36,3 +36,12 @@ def test_all_data_training_requires_locked_record_and_disables_validation(tmp_pa
     assert result['best_score'] is None
     assert set(training_data.TrainingCrops(1,1,final_training=True).ids)=={'001','002','003','004'}
     assert not list((tmp_path/'runs'/'smoke').glob('val_*.json'))
+    # Inference exports contain EMA only: initialization must not eagerly read
+    # the absent raw-model/optimizer keys (exact --resume still needs them).
+    exported=tmp_path/'inference_only.pt'
+    torch.save({key:result[key] for key in ['model_config','ema','step','split_sha256']},exported)
+    init_argv=argv.copy();init_argv[init_argv.index('smoke')]='initialized'
+    monkeypatch.setattr(sys,'argv',init_argv+['--init',str(exported)])
+    train.main()
+    initialized=torch.load(tmp_path/'runs'/'initialized'/'final.pt',map_location='cpu',weights_only=True)
+    assert initialized['step']==1 and initialized['validation_enabled'] is False

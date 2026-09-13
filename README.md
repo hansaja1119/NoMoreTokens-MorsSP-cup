@@ -1,6 +1,30 @@
-# Welcome to the Low-Light Image Denoising & Enhancement Challenge
+# MORA_SP_CUP — Low-Light Image Denoising & Enhancement Challenge
 
 **Mora SP Cup 2026**
+
+## Final VISION_HUNTERS deliverables — 13 September 2026
+
+- [Model selection, training, fine-tuning, every measured step and noise-level score, and overfitting evidence](scripts/reports/final/MODEL_GUIDE.md)
+- [Final 20 denoised images, image list, and checksums](final_output/IMAGE_LIST.md)
+- [Download the selected weights and image-only submission ZIP](https://github.com/abdul6996/MORA_SP_CUP/releases/tag/denoising-final-2026-09-13)
+- [GitHub publication contents and measured upload sizes](GITHUB_UPLOAD.md)
+
+Selected output: width 128, 20,000-update EMA, mild-noise protection 0.03.
+Measured 60-image validation: **PSNR 30.9470 dB, SSIM 0.910539, composite 0.626890096**.
+The preliminary outputs have no supplied ground truth and no claimed test score.
+The selected model was trained on 340 public pairs; the report distinguishes it
+from the earlier all-data width-32 model. Older development reports are historical.
+
+Download `VISION_HUNTERS_w128_s20000.pt` into `scripts/checkpoints/`, then run:
+
+```powershell
+python scripts/denoise.py --noise_dir submissions/noisy --denoised_dir reproduced_images --checkpoint scripts/checkpoints/VISION_HUNTERS_w128_s20000.pt --device cuda --manifest reproduced_manifest.json
+```
+
+Use `--device cpu` if needed. Install the pinned runtime requirements first;
+see the model guide. Datasets, virtual environments, caches, and intermediate
+training checkpoints are kept locally. The release weights support inference
+and initialization for fine-tuning; exact training resume needs a local full checkpoint.
 
 ## About the Challenge
 
@@ -67,3 +91,4 @@ competition_data/
     |   `-- 480_noise.png
     |
     `-- denoised/
+```
