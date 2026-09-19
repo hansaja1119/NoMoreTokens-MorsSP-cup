@@ -4,10 +4,10 @@
 
 ## Final NoMoreTokens deliverables 
 
+- [Google Drive: Final Deliverables, Model Checkpoints](https://drive.google.com/drive/folders/1uz77ZZRmh5-wFqbqWraJjvGR44-BPsva?usp=sharing)
 - [Model selection, training, fine-tuning, every measured step and noise-level score, and overfitting evidence](scripts/reports/final/MODEL_GUIDE.md)
 - [Final 20 denoised images, image list, and checksums](final_output/IMAGE_LIST.md)
-- [Download the selected weights and image-only submission ZIP](https://github.com/abdul6996/MORA_SP_CUP/releases/tag/denoising-final-2026-09-13)
-- [GitHub publication contents and measured upload sizes](GITHUB_UPLOAD.md)
+- [GitHub Release: Selected weights and image-only submission ZIP](https://github.com/abdul6996/MORA_SP_CUP/releases/tag/denoising-final-2026-09-13)
 
 Selected output: width 128, 20,000-update EMA, mild-noise protection 0.03.
 Measured 60-image validation: **PSNR 30.9470 dB, SSIM 0.910539, composite 0.626890096**.
@@ -15,16 +15,6 @@ The preliminary outputs have no supplied ground truth and no claimed test score.
 The selected model was trained on 340 public pairs; the report distinguishes it
 from the earlier all-data width-32 model. Older development reports are historical.
 
-Download `NoMoreTokens_w128_s20000.pt` into `scripts/checkpoints/`, then run:
-
-```powershell
-python scripts/denoise.py --noise_dir submissions/noisy --denoised_dir reproduced_images --checkpoint scripts/checkpoints/NoMoreTokens_w128_s20000.pt --device cuda --manifest reproduced_manifest.json
-```
-
-Use `--device cpu` if needed. Install the pinned runtime requirements first;
-see the model guide. Datasets, virtual environments, caches, and intermediate
-training checkpoints are kept locally. The release weights support inference
-and initialization for fine-tuning; exact training resume needs a local full checkpoint.
 
 ## About the Challenge
 
@@ -91,4 +81,81 @@ competition_data/
     |   `-- 480_noise.png
     |
     `-- denoised/
+```
+
+
+## Practical Execution and Reproduction Guide
+
+### 1. Inference Using Released Checkpoints
+The standalone inference engine handles arbitrary dimensions, 2D continuous Hanning window blending ($512 \times 512$ tiles, $64\text{ px}$ overlap), and automatic filename normalization (`<id>_noise.png` $\to$ `<id>.png`).
+
+Download `NoMoreTokens_w128_s20000.pt` into `scripts/checkpoints/` (available via [Google Drive](https://drive.google.com/drive/folders/1uz77ZZRmh5-wFqbqWraJjvGR44-BPsva?usp=sharing) and [GitHub Releases](https://github.com/abdul6996/MORA_SP_CUP/releases/tag/denoising-final-2026-09-13)), then run:
+
+* **GPU (CUDA) Inference** (High-throughput neural inference with overlapping Hanning tiles):
+  ```bash
+  python scripts/denoise.py \
+    --noise_dir competition_data/submissions/noisy \
+    --denoised_dir reproduced_cuda \
+    --checkpoint scripts/checkpoints/NoMoreTokens_w128_s20000.pt \
+    --device cuda
+  ```
+
+* **CPU Fallback Inference** (Executes full neural model on CPU with bit-exact repeatability, $\le 1\text{ LSB}$ deviation from CUDA):
+  ```bash
+  python scripts/denoise.py \
+    --noise_dir competition_data/submissions/noisy \
+    --denoised_dir reproduced_cpu \
+    --checkpoint scripts/checkpoints/NoMoreTokens_w128_s20000.pt \
+    --device cpu
+  ```
+
+* **Classical Wavelet Fallback** (Requires zero learned weights; runs on standard CPU in $<0.8\text{ s}$ per image, $Q = 0.3905$):
+  ```bash
+  python scripts/denoise.py \
+    --noise_dir competition_data/submissions/noisy \
+    --denoised_dir wavelet_out \
+    --method wavelet
+  ```
+
+### 2. Building and Training from Scratch
+To train the hybrid model from raw public data without pre-existing weights:
+
+1. **Precompute Feature Cache**: Precomputes 9-channel features and clean targets into uint8 memory-mapped arrays:
+   ```bash
+   python scripts/prepare_cache.py --workers 4
+   ```
+
+2. **Model Training**:
+   * *Full GPU Reproduction (Width 128, 20,000 steps)*:
+     ```bash
+     python scripts/train.py \
+       --run hybrid128 \
+       --width 128 --steps 20000 \
+       --batch 1 --accumulate 16 \
+       --val-every 1000 --device cuda
+     ```
+   * *Quick Local Test on CPU (Width 16, 500 steps)*:
+     ```bash
+     python scripts/train.py \
+       --run test_cpu \
+       --width 16 --steps 500 \
+       --batch 4 --accumulate 4 \
+       --val-every 250 --device cpu
+     ```
+
+3. **Export Inference Checkpoint**: Strips optimizer states, extracts EMA weights, and attaches calibrated mild-noise protection ($\tau=0.03$):
+   ```bash
+   python scripts/export_checkpoint.py \
+     --source scripts/runs/hybrid128/best.pt \
+     --output scripts/checkpoints/NoMoreTokens_w128.pt \
+     --mild-threshold 0.03
+   ```
+
+### 3. Quantitative Metric Evaluation
+To evaluate predictions against public ground-truth pairs using the official competition scoring script:
+```bash
+python evaluation/evaluate.py \
+  --noisy_dir competition_data/public/noisy \
+  --pred_dir reproduced_cuda \
+  --gt_dir competition_data/public/ground_truth
 ```
