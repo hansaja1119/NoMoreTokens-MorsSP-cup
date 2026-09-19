@@ -52,8 +52,8 @@ class Guide:
         # The cover and metadata slots are retained; prose/table patterns are cloned below.
         for node in self.original[23:]:self.body.remove(node)
         cover_replacements={'System Name':'VISION HUNTERS','Title of Proposal':'Image Denoising Explained',
-          '[Draft / Proposed / Approved]':'Technical guide','[Team Name]':'VISION_HUNTERS',
-          '[Month, DD, YYYY]':'September 9, 2026','[Name(s)]':'VISION_HUNTERS project',
+          '[Draft / Proposed / Approved]':'Technical guide','[Team Name]':'NoMoreTokens',
+          '[Month, DD, YYYY]':'September 9, 2026','[Name(s)]':'NoMoreTokens project',
           'Reviewers':'Reader','[Reviewer names, roles, or groups]':'Basic digital image processing knowledge',
           '[Link to related docs]':'Implementation in scripts and recorded experiment results',
           '[One-sentence description of what this design covers]':'How the denoiser works and how we train and evaluate it'}
@@ -170,9 +170,9 @@ Content correctness and all final pages must be inspected. Final QA includes pac
         self.body.append(self.section)
         self.parts['word/document.xml']=E.tostring(self.tree,xml_declaration=True,encoding='UTF-8',standalone=True)
         for name in ['word/footer1.xml','word/footer2.xml']:
-            self.parts[name]=self.parts[name].replace(b'[Organization Name] | System Design RFC',b'VISION_HUNTERS | Image Denoising Explained')
+            self.parts[name]=self.parts[name].replace(b'[Organization Name] | System Design RFC',b'NoMoreTokens | Image Denoising Explained')
         # No visible template footnote is retained in the teaching body; preserve the opaque footnote part.
-        target=OUT/'VISION_HUNTERS_Technical_Guide.docx'
+        target=OUT/'NoMoreTokens_Technical_Guide.docx'
         with ZipFile(target,'w',ZIP_DEFLATED) as z:
             for name,data in self.parts.items():z.writestr(name,data)
         with ZipFile(REF) as source,ZipFile(target) as final:
@@ -189,7 +189,7 @@ def main():
 
 def add_content(g):
     g.heading('1 How the solution works')
-    g.p('This guide explains the VISION_HUNTERS implementation for a reader who knows basic filtering, image histograms and spatial or frequency representations. The main idea is to combine an adaptive classical denoiser with a network that learns how to correct its remaining errors. The same procedure is applied to every input image; it does not choose an algorithm by image filename or search for a matching clean photograph.')
+    g.p('This guide explains the NoMoreTokens implementation for a reader who knows basic filtering, image histograms and spatial or frequency representations. The main idea is to combine an adaptive classical denoiser with a network that learns how to correct its remaining errors. The same procedure is applied to every input image; it does not choose an algorithm by image filename or search for a matching clean photograph.')
     g.p('Your idea of identifying noise and applying a suitable filter is a useful starting point. Here, adaptation is mostly continuous: we estimate how strong the noise appears in different locations and color channels, then adjust the filtering strength. We do not first assign a hard label such as Gaussian or salt and pepper. Mixed noise, clipping and textured regions make a single label unreliable.')
     g.equation('y = x + n')
     g.p('In this simplified model, x is the unknown clean image, y is the observed noisy image and n is the error. Real corruption may be signal dependent, spatially varying or clipped, so this equation describes the residual without proving that n follows one distribution. Our task is to estimate x from y. During training, paired clean images teach the model what the correct answer should look like. During inference, no clean reference is available or required.')
@@ -284,7 +284,7 @@ def add_remaining(g):
     for line in ['.\\scripts\\.venv\\Scripts\\python.exe scripts/denoise.py `',
                  '  --noise_dir submissions/noisy `',
                  '  --denoised_dir scripts/outputs/manual_demo `',
-                 '  --checkpoint scripts/checkpoints/VISION_HUNTERS_final_candidate.pt `',
+                 '  --checkpoint scripts/checkpoints/NoMoreTokens_final_candidate.pt `',
                  '  --device cpu']:
         g.p(line)
     g.p('Double-click scripts/Watch Training.cmd to open the live progress monitor. A run marked complete only means that particular model reached its requested stopping point. The full queue can still include another width, longer training, evaluation or packaging. Wait for ALL QUEUED WORK FINISHED before turning off the laptop. The monitor is read-only; closing it does not stop the separate training process.')

@@ -1,12 +1,12 @@
 # Final denoising results and model improvement guide
 
-Prepared 2026-09-13 for VISION_HUNTERS. This report supersedes the early development scorecard. All values are measured local results, not competition leaderboard scores.
+Prepared 2026-09-13 for NoMoreTokens. This report supersedes the early development scorecard. All values are measured local results, not competition leaderboard scores.
 
 ## What to submit
 
 The highest measured base model is **hybrid128, width 128, step 20,000**, EMA weights: PSNR 30.949480 dB, SSIM 0.910601, composite 0.627013204 on the original 60 validation images. The delivered inference model uses the already stress-tested mild-protection threshold 0.03. Its separately measured full-validation score is **0.626890096**, PSNR **30.947021 dB**, SSIM **0.910539**.
 
-Use [the 20 final PNGs](../../../final_output/images) or the image-only `final_output/VISION_HUNTERS.zip`. [Image list and checksums](../../../final_output/IMAGE_LIST.md). The checkpoint is `scripts/checkpoints/VISION_HUNTERS_w128_s20000.pt`; download it from the GitHub release if it is not present in a clone. This is the trained 340-image development model, not a new all-460 refit. No new long training run was needed for this handoff.
+Use [the 20 final PNGs](../../../final_output/images) or the image-only `final_output/NoMoreTokens.zip`. [Image list and checksums](../../../final_output/IMAGE_LIST.md). The checkpoint is `scripts/checkpoints/NoMoreTokens_w128_s20000.pt`; download it from the GitHub release if it is not present in a clone. This is the trained 340-image development model, not a new all-460 refit. No new long training run was needed for this handoff.
 
 This is the strongest measured choice among the completed runs when quality is the priority and runtime permits it. It is not a guarantee of the best hidden-test result. Width 96 is a speed/size compromise; width 32 is the compact fallback. The earlier all-data width-32 output remains in `scripts/outputs/final_candidate`; its score cannot be compared as held-out validation because its training includes that partition. There is no all-data width-128 checkpoint or width-128 SSIM fine-tune in these experiments.
 
@@ -355,7 +355,7 @@ Run from the repository root with Python 3.12. The local interpreter is `scripts
 ```powershell
 python -m pip install -r scripts/requirements-gpu.txt
 # Place the downloaded inference checkpoint at the path below.
-python scripts/denoise.py --noise_dir submissions/noisy --denoised_dir reproduced_images --checkpoint scripts/checkpoints/VISION_HUNTERS_w128_s20000.pt --device cuda --manifest reproduced_manifest.json
+python scripts/denoise.py --noise_dir submissions/noisy --denoised_dir reproduced_images --checkpoint scripts/checkpoints/NoMoreTokens_w128_s20000.pt --device cuda --manifest reproduced_manifest.json
 # Substitute --device cpu when CUDA is unavailable.
 ```
 

@@ -1,5 +1,5 @@
 {
-  "checkpoint": "scripts\\checkpoints\\VISION_HUNTERS_w128_s20000.pt",
+  "checkpoint": "scripts\\checkpoints\\NoMoreTokens_w128_s20000.pt",
   "checkpoint_sha256": "5bbd0b133f98603a72ab3b4679627dcbc9c2a2d1e3166e30d46130131f61287c",
   "step": 20000,
   "device": "cuda",

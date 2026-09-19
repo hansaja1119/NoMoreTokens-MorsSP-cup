@@ -11,7 +11,7 @@ def test_completion_requires_both_phases_and_final_artifacts(tmp_path):
     output=tmp_path/'outputs';output.mkdir();checkpoint=tmp_path/'model.pt'
     final=dict(state='complete',output=str(output),checkpoint=str(checkpoint))
     assert completion_state(queue,final,tmp_path)[0]=='attention'
-    (output/'VISION_HUNTERS.zip').write_bytes(b'fixture');checkpoint.write_bytes(b'fixture')
+    (output/'NoMoreTokens.zip').write_bytes(b'fixture');checkpoint.write_bytes(b'fixture')
     assert completion_state(queue,final,tmp_path)[0]=='complete'
     large=tmp_path/'large_width_experiments';large.mkdir()
     (large/'status.json').write_text('{"state":"running"}')

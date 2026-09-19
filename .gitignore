@@ -15,4 +15,5 @@ __pycache__/
 /public/
 /submissions/
 /.publication/
-/final_output/*.zip
+/final_output/
+

@@ -121,7 +121,7 @@ def export_history(histories, output):
     best_rows = [row for row in rows if row['best_checkpoint_for_run']]
     (output / 'best_checkpoints.json').write_text(json.dumps(best_rows, indent=2), encoding='utf-8')
     (output / 'README.txt').write_text(
-        'VISION_HUNTERS validation history\n\n'
+        'NoMoreTokens validation history\n\n'
         'Updated by Watch Training when new completed validation results arrive.\n'
         'All rows use the original 60 validation images. Higher composite score is better.\n'
         'These are base MSE runs; later SSIM fine-tuning and protection are separate.\n'

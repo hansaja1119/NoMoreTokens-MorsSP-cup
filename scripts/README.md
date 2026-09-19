@@ -2,12 +2,12 @@
 
 **Final handoff (2026-09-13):** use the [current model guide](reports/final/MODEL_GUIDE.md)
 and [final image inventory](../final_output/IMAGE_LIST.md). The final output model
-is `checkpoints/VISION_HUNTERS_w128_s20000.pt`, supplied as a GitHub release asset.
+is `checkpoints/NoMoreTokens_w128_s20000.pt`, supplied as a GitHub release asset.
 Specify that checkpoint explicitly; `selected.pt` below remains the historical
 width-32 development selection. The notes below document the earlier workflow.
 
 This is an experimental solution under development, not a frozen competition submission.
-Team: **VISION_HUNTERS**.
+Team: **NoMoreTokens**.
 All custom code is inside `scripts/`. The official baseline/evaluator are unchanged
 from starter commit `6fe15af99b2dc5d808cf6004f7cb11df148b9f82`.
 

@@ -14,7 +14,7 @@ from reportlab.lib.utils import ImageReader
 from PIL import Image
 
 S=Path(__file__).resolve().parent;ROOT=S.parent
-OUT=S/'outputs'/'development'/'VISION_HUNTERS_Report.pdf'
+OUT=S/'outputs'/'development'/'NoMoreTokens_Report.pdf'
 W,H=A4;M=72;CW=W-2*M
 INK=colors.HexColor('#172635');BLUE=colors.HexColor('#205b7c')
 STYLE=ParagraphStyle('body',fontName='Helvetica',fontSize=12,leading=15.5,textColor=INK,spaceAfter=8)
@@ -26,13 +26,13 @@ class Report:
     def __init__(self):
         OUT.parent.mkdir(parents=True,exist_ok=True)
         self.c=canvas.Canvas(str(OUT),pagesize=A4)
-        self.c.setTitle('VISION_HUNTERS - Adaptive Denoising Development Report')
-        self.c.setAuthor('VISION_HUNTERS');self.page=0
+        self.c.setTitle('NoMoreTokens - Adaptive Denoising Development Report')
+        self.c.setAuthor('NoMoreTokens');self.page=0
     def start(self,title):
         if self.page:self.finish()
         self.page+=1;self.y=H-M-12
         self.c.setFillColor(BLUE);self.c.setFont('Helvetica-Bold',12)
-        self.c.drawString(M,self.y,'VISION_HUNTERS  |  MORA SP CUP 2026');self.y-=31
+        self.c.drawString(M,self.y,'NoMoreTokens  |  MORA SP CUP 2026');self.y-=31
         self.c.setFillColor(INK);self.c.setFont('Helvetica-Bold',18)
         self.c.drawString(M,self.y,title);self.y-=27
     def p(self,text):

@@ -15,7 +15,7 @@ from package_submission import validate_images
 
 def main():
     out = ROOT / 'final_output'
-    checkpoint = SCRIPTS / 'checkpoints' / 'VISION_HUNTERS_w128_s20000.pt'
+    checkpoint = SCRIPTS / 'checkpoints' / 'NoMoreTokens_w128_s20000.pt'
     manifest = json.loads((out / 'inference_manifest.json').read_text())
     hashes = validate_images(out / 'images')
     assert hashes == {r['output']: r['sha256'] for r in manifest['images']}
@@ -55,7 +55,7 @@ def main():
             scope='One full validation image CPU twice and CUDA comparison; one delivered image CUDA repeat. No full-frame 1024px test.'))
     else:
         assert json.loads(runtime.read_text())['checkpoint_sha256'] == sha256(checkpoint)
-    archive = out / 'VISION_HUNTERS.zip'
+    archive = out / 'NoMoreTokens.zip'
     if not archive.exists():
         with zipfile.ZipFile(archive, 'w', zipfile.ZIP_DEFLATED) as z:
             for name in sorted(hashes):
@@ -65,7 +65,7 @@ def main():
         import hashlib
         assert all(hashlib.sha256(z.read(n)).hexdigest() == h for n, h in hashes.items())
     revision = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
-    write_json(out / 'submission_manifest.json', dict(team='VISION_HUNTERS', code_base_commit=revision,
+    write_json(out / 'submission_manifest.json', dict(team='NoMoreTokens', code_base_commit=revision,
         provenance_note='Base commit before handoff; exact working-tree inference code identified by source hashes below.',
         source_hashes={n: sha256(SCRIPTS / n) for n in ['model.py', 'inference.py', 'classical.py', 'common.py', 'denoise.py']},
         checkpoint_sha256=sha256(checkpoint), zip_sha256=sha256(archive), images=hashes))
@@ -73,7 +73,7 @@ def main():
     draw = ImageDraw.Draw(sheet)
     lines = ['# Final denoised image list', '',
         '20 RGB PNG images, each 992 × 992, generated from width 128 / 20,000-step EMA / mild threshold 0.03 using CUDA.', '',
-        'Download `VISION_HUNTERS.zip` from the GitHub release for the image-only competition archive. All files are also in [images](images).', '',
+        'Download `NoMoreTokens.zip` from the GitHub release for the image-only competition archive. All files are also in [images](images).', '',
         'No clean preliminary targets are supplied; no quality score is claimed for these 20 images.', '',
         '| Noisy input | Denoised output | Bytes | SHA-256 |', '|---|---|---:|---|']
     for idx, row in enumerate(manifest['images']):

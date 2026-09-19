@@ -108,7 +108,7 @@ def main():
         if recipe['fine_steps']:
             weights=final_train('final_all_ssim',recipe['fine_steps'],architecture['width'],architecture['rgb'],
                                 architecture['no_synthetic'],init=weights,ssim=recipe['ssim_weight'],schedule=recipe['fine_schedule_steps'])
-        checkpoint=SCRIPTS/'checkpoints'/'VISION_HUNTERS_final_candidate.pt'
+        checkpoint=SCRIPTS/'checkpoints'/'NoMoreTokens_final_candidate.pt'
         if not checkpoint.exists():
             command('export','export_checkpoint.py','--source',weights,'--output',checkpoint,'--mild-threshold',selection['mild_threshold'])
         runtime=WORK/'final_runtime.json'
@@ -121,7 +121,7 @@ def main():
             command('preliminary_images','denoise.py','--noise_dir',noisy,'--denoised_dir',out/'images',
                     '--checkpoint',checkpoint,'--device','cpu','--manifest',manifest)
         revision=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
-        if not (out/'VISION_HUNTERS.zip').exists():
+        if not (out/'NoMoreTokens.zip').exists():
             command('package','package_submission.py','--images',out/'images','--output-dir',out,
                     '--inference-manifest',manifest,'--checkpoint',checkpoint,'--commit',revision)
         write_json(WORK/'status.json',dict(state='complete',checkpoint=str(checkpoint),checkpoint_sha256=sha256(checkpoint),

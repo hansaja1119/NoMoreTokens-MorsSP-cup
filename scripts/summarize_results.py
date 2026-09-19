@@ -27,7 +27,7 @@ def main():
         ci=np.quantile(values,[.025,.975]).tolist()
         entries.append(dict(run=path.parent.name,step=result.get('step'),summary=result['summary'],paired_gain_ci95=ci,path=str(path)))
     write_json(SCRIPTS/'reports'/'scorecard.json',dict(validation_images=len(ids),bootstrap_groups=len(groups),replicates=10000,entries=entries))
-    lines=['# VISION_HUNTERS development scorecard','',
+    lines=['# NoMoreTokens development scorecard','',
            'All quality values below are from the same 60-image validation split. The locked test remains reserved.',
            f'Gain intervals resample {len(groups)} scene groups, using 10,000 paired bootstrap replicates.',
            'They quantify uncertainty within this dataset, not the probability of winning.',

@@ -1,4 +1,4 @@
-# VISION_HUNTERS development scorecard
+# NoMoreTokens development scorecard
 
 **Historical early scorecard.** For all completed widths and steps, current
 selection, and the historical locked-test assessment, read the

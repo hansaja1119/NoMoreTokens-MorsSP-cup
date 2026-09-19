@@ -55,7 +55,7 @@ def completion_state(queue,final,runs):
         if state.get('state')=='failed':return 'attention',f'{label} failed: {state.get("error","see its log")}'
     if queue.get('state')=='complete' and final.get('state')=='complete':
         output=Path(final.get('output',''));checkpoint=Path(final.get('checkpoint',''))
-        if (output/'VISION_HUNTERS.zip').is_file() and checkpoint.is_file():
+        if (output/'NoMoreTokens.zip').is_file() and checkpoint.is_file():
             return 'complete','ALL QUEUED WORK FINISHED - YOU CAN TURN OFF THE LAPTOP.'
         return 'attention','Completion was recorded, but the final checkpoint or ZIP is missing.'
     for folder,state,lockname in [('experiment_queue',queue,'queue.lock'),('final_preparation',final,'preparation.lock')]:
@@ -94,7 +94,7 @@ def snapshot(runs, export_dir=None):
     extra=read_json(runs/'width_experiments'/'status.json')
     large=read_json(runs/'large_width_experiments'/'status.json')
     state,message=completion_state(queue,final,runs)
-    lines=['VISION_HUNTERS | LIVE TRAINING PROGRESS',datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+    lines=['NoMoreTokens | LIVE TRAINING PROGRESS',datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
            '='*78,message,'='*78,'',
            f'Development:       {queue.get("state","unknown")} | {queue.get("stage",queue.get("selected_run","-"))}',
            f'Final preparation: {final.get("state","not started")} | {final.get("stage","-")}']
